@@ -55,7 +55,7 @@ const HeaderWrap = styled.header`
   justify-content: space-between;
   align-content: center;
   align-items: baseline;
-  padding: 10px;
+  padding: 10px 0px;
 `;
 
 const CurrentDate = styled.span`
@@ -69,6 +69,7 @@ const ArrowButton = styled.button`
   border: none;
   border-radius: 5px;
   box-shadow: 1px 1px 1px 1px grey;
+  padding: 5px 10px;
   cursor: pointer;
   &:hover {
     background: #c4c4c4;

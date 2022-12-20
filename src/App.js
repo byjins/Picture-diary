@@ -1,12 +1,19 @@
 import styled from 'styled-components';
-import Header from './components/Header';
 import './app.css';
+import { Route, Routes } from 'react-router-dom';
+import Index from './pages/Index';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <ContainerWrap>
-      <Header />
-      <main>여기에 콘텐츠 들어가야징~~</main>
+      <Cotainer>
+        <Routes>
+          <Route path='/' element={<Index />} />
+          <Route path='/index' element={<Index />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </Cotainer>
     </ContainerWrap>
   );
 }
@@ -18,4 +25,8 @@ const ContainerWrap = styled.div`
   flex-direction: column;
   width: 380px;
   margin: auto;
+`;
+
+const Cotainer = styled.main`
+  height: 100vh;
 `;
