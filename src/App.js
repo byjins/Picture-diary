@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import './app.css';
 import { Route, Routes } from 'react-router-dom';
 import Index from './pages/Index';
 import NotFound from './pages/NotFound';
@@ -28,5 +27,6 @@ const ContainerWrap = styled.div`
 `;
 
 const Cotainer = styled.main`
+  width: 100%;
   height: 100vh;
 `;

@@ -11,10 +11,14 @@ const IndexNav = () => {
           <option>최신순</option>
           <option>오래된 순</option>
         </SelectBox>
-        <SelectBox>
-          <option>행복순</option>
-          <option>안행복순</option>
-        </SelectBox>
+        <CustomButton
+          background={Colors.primaryColor}
+          color='white'
+          hoverbackground={Colors.primaryColor}
+          style={{ padding: '7px 10px' }}
+        >
+          슬라이드쇼로 보기
+        </CustomButton>
       </OptionWrap>
       <CustomButton
         background={Colors.primaryColor}
@@ -30,7 +34,7 @@ const IndexNav = () => {
 
 export default IndexNav;
 
-const IndexNavWrap = styled.section`
+const IndexNavWrap = styled.nav`
   display: flex;
   justify-content: space-between;
   justify-content: baseline;

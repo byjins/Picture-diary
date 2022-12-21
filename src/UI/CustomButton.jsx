@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Colors from '../styles/Color';
 
 export const CustomButton = styled.button`
+  font-family: GangwonEdu_OTFBoldA;
   background-color: ${(props) => props.background};
   color: ${(props) => props.color};
   border-radius: ${(props) => props.radius || '5px'};
