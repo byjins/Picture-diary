@@ -37,7 +37,6 @@ const DiaryItemWrap = styled.article`
   height: 100px;
   border-radius: 5px;
   box-shadow: 1px 1px 4px 0px #224c9071;
-  overflow: hidden;
   padding: 5px;
 `;
 

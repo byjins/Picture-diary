@@ -27,14 +27,52 @@ const DIRAYS = [
     text: '오늘 정말 좋은 하루였다.',
     date: '2022-12-18',
   },
+  {
+    id: 5,
+    image: '',
+    text: '오늘 정말 좋은 하루였다.',
+    date: '2022-12-18',
+  },
+  {
+    id: 6,
+    image: '',
+    text: '오늘 정말 좋은 하루였다.',
+    date: '2022-12-18',
+  },
+  {
+    id: 7,
+    image: '',
+    text: '오늘 정말 좋은 하루였다.',
+    date: '2022-12-18',
+  },
+  {
+    id: 8,
+    image: '',
+    text: '오늘 정말 좋은 하루였다.',
+    date: '2022-12-18',
+  },
+  {
+    id: 9,
+    image: '',
+    text: '오늘 정말 좋은 하루였다.',
+    date: '2022-12-18',
+  },
+  {
+    id: 10,
+    image: '',
+    text: '오늘 정말 좋은 하루였다.',
+    date: '2022-12-18',
+  },
 ];
 const DiaryList = () => {
   return (
-    <DirayListWrap>
-      {DIRAYS.map((item) => (
-        <DirayItem key={item.id} diaryList={item} />
-      ))}
-    </DirayListWrap>
+    <main>
+      <DirayListWrap>
+        {DIRAYS.map((item) => (
+          <DirayItem key={item.id} diaryList={item} />
+        ))}
+      </DirayListWrap>
+    </main>
   );
 };
 
@@ -44,4 +82,5 @@ const DirayListWrap = styled.section`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding: 3px;
 `;

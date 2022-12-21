@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { TbArrowBigRight, TbArrowBigLeft } from 'react-icons/tb';
-import IndexNav from '../components/IndexNav';
+import IndexNav from './IndexNav';
+import HeaderWrap from './HeaderWrap';
 
-const Header = () => {
+const IndexHeader = () => {
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
 
@@ -37,30 +38,30 @@ const Header = () => {
   };
 
   return (
-    <StickyWrap>
+    <>
       <HeaderWrap>
-        <ArrowButton onClick={onClickPrevMonth}>
-          <TbArrowBigLeft style={{ fontSize: 18 }} />
-        </ArrowButton>
-        <CurrentDate>{currentDate}</CurrentDate>
-        <ArrowButton onClick={onClickNextMonth}>
-          <TbArrowBigRight style={{ fontSize: 18 }} />
-        </ArrowButton>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'baseline',
+          }}
+        >
+          <ArrowButton onClick={onClickPrevMonth}>
+            <TbArrowBigLeft style={{ fontSize: 18 }} />
+          </ArrowButton>
+          <CurrentDate>{currentDate}</CurrentDate>
+          <ArrowButton onClick={onClickNextMonth}>
+            <TbArrowBigRight style={{ fontSize: 18 }} />
+          </ArrowButton>
+        </div>
+        <IndexNav />
       </HeaderWrap>
-      <IndexNav />
-    </StickyWrap>
+    </>
   );
 };
 
-export default Header;
-
-const HeaderWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  align-items: baseline;
-  padding: 10px 0px;
-`;
+export default IndexHeader;
 
 const CurrentDate = styled.span`
   font-size: 24px;
@@ -78,10 +79,4 @@ const ArrowButton = styled.button`
   &:hover {
     background: #c4c4c4;
   }
-`;
-
-const StickyWrap = styled.header`
-  background-color: white;
-  position: sticky;
-  top: 0;
 `;

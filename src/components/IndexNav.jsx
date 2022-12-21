@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Colors from '../styles/Color';
 import { CustomButton } from '../UI/CustomButton';
 
 const IndexNav = () => {
+  const navigate = useNavigate();
   return (
     <IndexNavWrap>
       <OptionWrap>
@@ -14,7 +16,7 @@ const IndexNav = () => {
         <CustomButton
           background={Colors.primaryColor}
           color='white'
-          hoverbackground={Colors.primaryColor}
+          hoverbackground={Colors.primaryDeepColor}
           style={{ padding: '7px 10px' }}
         >
           슬라이드쇼로 보기
@@ -25,6 +27,7 @@ const IndexNav = () => {
         color='white'
         hoverbackground={Colors.primaryDeepColor}
         style={{ padding: 5 }}
+        onClick={() => navigate('/write')}
       >
         일기쓰기
       </CustomButton>

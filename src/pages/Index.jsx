@@ -1,11 +1,11 @@
 import React from 'react';
 import DiaryList from '../components/DiaryList';
-import Header from '../components/Header';
+import IndexHeader from '../components/IndexHeader';
 
 const Index = () => {
   return (
     <>
-      <Header />
+      <IndexHeader />
       <DiaryList />
     </>
   );
