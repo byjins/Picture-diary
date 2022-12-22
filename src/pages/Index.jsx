@@ -1,4 +1,3 @@
-import React from 'react';
 import DiaryList from '../components/DiaryList';
 import IndexHeader from '../components/IndexHeader';
 
