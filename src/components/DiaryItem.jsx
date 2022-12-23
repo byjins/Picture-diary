@@ -14,12 +14,7 @@ const DiaryItem = ({ diaryList }) => {
       <DirayInfoBox>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <DiaryDate>{date}</DiaryDate>
-          <CustomButton
-            background='grey'
-            color='white'
-            hoverbackground={Colors.primaryDeepColor}
-            style={{ padding: 5 }}
-          >
+          <CustomButton background='grey' style={{ padding: 5 }}>
             수정하기
           </CustomButton>
         </div>

@@ -13,22 +13,11 @@ const IndexNav = () => {
           <option>최신순</option>
           <option>오래된 순</option>
         </SelectBox>
-        <CustomButton
-          background={Colors.primaryColor}
-          color='white'
-          hoverbackground={Colors.primaryDeepColor}
-          style={{ padding: '7px 10px' }}
-        >
+        <CustomButton style={{ padding: '7px 10px' }}>
           슬라이드쇼로 보기
         </CustomButton>
       </OptionWrap>
-      <CustomButton
-        background={Colors.primaryColor}
-        color='white'
-        hoverbackground={Colors.primaryDeepColor}
-        style={{ padding: 5 }}
-        onClick={() => navigate('/write')}
-      >
+      <CustomButton style={{ padding: 5 }} onClick={() => navigate('/write')}>
         일기쓰기
       </CustomButton>
     </IndexNavWrap>

@@ -40,7 +40,7 @@ const ImageUploadBtn = styled.div`
   background-color: #2599e7;
   color: white;
   border-radius: 5px;
-  margin-top: 3px;
+  margin: 3px 0;
   width: 100%;
   height: 30px;
 `;
