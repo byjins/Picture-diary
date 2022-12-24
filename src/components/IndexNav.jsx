@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Colors from '../styles/Color';
 import { CustomButton } from '../UI/CustomButton';
 
 const IndexNav = () => {

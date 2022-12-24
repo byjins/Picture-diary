@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Colors from '../styles/Color';
 import { CustomButton } from '../UI/CustomButton';
 
 const DiaryItem = ({ diaryList }) => {
