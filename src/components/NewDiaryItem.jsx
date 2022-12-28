@@ -1,10 +1,16 @@
 import { useRef, useState } from 'react';
+import DatePicker from 'react-datepicker';
 import styled from 'styled-components';
 import { CustomButton } from '../UI/CustomButton';
 import ImageUpload from './ImageUpload';
+import { ko } from 'date-fns/esm/locale';
+import 'react-datepicker/dist/react-datepicker.css';
+import WeatherList from './WeatherList';
 
 const NewDiaryItem = () => {
-  const [ImageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [pickDate, setPickDate] = useState(new Date());
+  const [weather, setWeather] = useState(null);
   const textRef = useRef();
 
   // 키를 뗐을 때
@@ -30,13 +36,18 @@ const NewDiaryItem = () => {
 
   // 작성하기 눌렀을 때
   const onClickSubmit = () => {
-    if (ImageFile === null) {
+    if (!imageFile) {
       alert('사진은 필수입니다!');
       return;
     }
 
+    if (!weather) {
+      alert('날씨를 선택해주세요!');
+      return;
+    }
+
     // firebase에 올리기
-    console.log(ImageFile, textRef.current.value);
+    console.log(textRef.current.value, weather, pickDate);
   };
   return (
     <main>
@@ -44,11 +55,17 @@ const NewDiaryItem = () => {
         <h1 style={{ marginTop: 5 }}>새 일기 쓰기</h1>
         <article>
           <ImgWrap>
-            <Img src={ImageFile} alt='이미지를 추가해주세요!' />
+            <Img src={imageFile} alt='이미지를 추가해주세요!' />
           </ImgWrap>
           <ImageUpload setImageFile={setImageFile} />
+          <DatePicker
+            selected={pickDate}
+            onChange={(date) => setPickDate(date)}
+            locale={ko}
+          />
+          <WeatherList setWeather={setWeather} />
           <textarea
-            style={{ width: '98%', resize: 'none' }}
+            style={{ width: '98%', resize: 'none', marginTop: '5px' }}
             placeholder={'일기 내용을 작성해주세요!'}
             rows={3}
             ref={textRef}
