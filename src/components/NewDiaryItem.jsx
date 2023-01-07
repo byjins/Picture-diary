@@ -6,9 +6,13 @@ import ImageUpload from './ImageUpload';
 import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import WeatherList from './WeatherList';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../service/firebase';
 
 const NewDiaryItem = () => {
+  let IMAGE_URL = '';
   const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [pickDate, setPickDate] = useState(new Date());
   const [weather, setWeather] = useState(null);
   const textRef = useRef();
@@ -46,6 +50,20 @@ const NewDiaryItem = () => {
       return;
     }
 
+    // Create a root reference
+
+    const storageRef = ref(storage, `images/${imageFile.name}`);
+    console.log('나는스토리지', storage, '나는 스토리지 Ref', storageRef);
+
+    uploadBytes(storageRef, imageFile).then((snapshot) => {
+      console.log(snapshot, '이건 스냅샷');
+
+      getDownloadURL(storageRef).then((url) => {
+        IMAGE_URL = url;
+      });
+    });
+
+    console.log(IMAGE_URL);
     // firebase에 올리기
     const res = await fetch(
       'https://picture-dairyd-default-rtdb.firebaseio.com/diary.json',
@@ -58,13 +76,17 @@ const NewDiaryItem = () => {
             .toLocaleDateString()
             .replace(/\./g, '')
             .replace(/\s/g, '-'),
+          image: IMAGE_URL,
         }),
       },
     );
 
-    if (res.ok) {
-      alert('등록완료!');
+    if (!res.ok) {
+      alert('등록 실패!');
+      return;
     }
+
+    alert('등록완료!');
   };
   return (
     <main>
@@ -72,9 +94,12 @@ const NewDiaryItem = () => {
         <h1 style={{ marginTop: 5 }}>새 일기 쓰기</h1>
         <article>
           <ImgWrap>
-            <Img src={imageFile} alt='이미지를 추가해주세요!' />
+            <Img src={imagePreview} alt='이미지를 추가해주세요!' />
           </ImgWrap>
-          <ImageUpload setImageFile={setImageFile} />
+          <ImageUpload
+            setImageFile={setImageFile}
+            setImagePreview={setImagePreview}
+          />
           <DatePicker
             selected={pickDate}
             onChange={(date) => setPickDate(date)}

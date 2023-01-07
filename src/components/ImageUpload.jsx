@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 
-const ImageUpload = ({ setImageFile }) => {
+const ImageUpload = ({ setImageFile, setImagePreview }) => {
   const imageInput = useRef();
 
   const onCickImageUpload = () => {
@@ -13,7 +13,8 @@ const ImageUpload = ({ setImageFile }) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setImageFile(reader.result);
+      setImagePreview(reader.result);
+      setImageFile(file);
     };
   };
 
