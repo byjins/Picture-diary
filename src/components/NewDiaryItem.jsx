@@ -35,7 +35,7 @@ const NewDiaryItem = () => {
   };
 
   // 작성하기 눌렀을 때
-  const onClickSubmit = () => {
+  const onClickSubmit = async () => {
     if (!imageFile) {
       alert('사진은 필수입니다!');
       return;
@@ -47,7 +47,24 @@ const NewDiaryItem = () => {
     }
 
     // firebase에 올리기
-    console.log(textRef.current.value, weather, pickDate);
+    const res = await fetch(
+      'https://picture-dairyd-default-rtdb.firebaseio.com/diary.json',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          title: textRef.current.value,
+          weather,
+          pickDate: pickDate
+            .toLocaleDateString()
+            .replace(/\./g, '')
+            .replace(/\s/g, '-'),
+        }),
+      },
+    );
+
+    if (res.ok) {
+      alert('등록완료!');
+    }
   };
   return (
     <main>
