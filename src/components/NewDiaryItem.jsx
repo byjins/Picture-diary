@@ -8,13 +8,18 @@ import 'react-datepicker/dist/react-datepicker.css';
 import WeatherList from './WeatherList';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../service/firebase';
+import uuid from 'react-uuid';
+import { useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../asset/LoadingSpinner';
 
 const NewDiaryItem = () => {
-  let IMAGE_URL = '';
+  const naviagte = useNavigate();
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [contents, setContents] = useState('');
   const [pickDate, setPickDate] = useState(new Date());
   const [weather, setWeather] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const textRef = useRef();
 
   // 키를 뗐을 때
@@ -30,12 +35,16 @@ const NewDiaryItem = () => {
   const onKeyDownTextArea = () => {
     const enterCounter = textRef.current.value.split('\n');
     const maxRows = 3;
-    if (enterCounter.length >= maxRows) {
+    if (enterCounter.length > maxRows) {
       alert('최대 3줄까지 가능합니다!');
       let modifiedText = enterCounter.slice(0, maxRows);
       textRef.current.value = modifiedText.join('\n');
       return;
     }
+  };
+
+  const onChangeContents = (event) => {
+    setContents(event.target.value);
   };
 
   // 작성하기 눌렀을 때
@@ -52,77 +61,79 @@ const NewDiaryItem = () => {
 
     // Create a root reference
 
+    setIsLoading(true);
     const storageRef = ref(storage, `images/${imageFile.name}`);
-    console.log('나는스토리지', storage, '나는 스토리지 Ref', storageRef);
 
     uploadBytes(storageRef, imageFile).then((snapshot) => {
-      console.log(snapshot, '이건 스냅샷');
+      getDownloadURL(storageRef).then(async (url) => {
+        // firebase에 올리기
+        const res = await fetch(
+          'https://picture-dairyd-default-rtdb.firebaseio.com/diary.json',
+          {
+            method: 'POST',
+            body: JSON.stringify({
+              id: uuid(),
+              title: contents,
+              weather,
+              pickDate: pickDate
+                .toLocaleDateString()
+                .replace(/\./g, '')
+                .replace(/\s/g, '-'),
+              image: url,
+            }),
+          },
+        );
 
-      getDownloadURL(storageRef).then((url) => {
-        IMAGE_URL = url;
+        if (!res.ok) {
+          alert('등록 실패!');
+          setIsLoading(false);
+          return;
+        }
+
+        alert('등록완료!');
+        naviagte('/');
       });
     });
-
-    console.log(IMAGE_URL);
-    // firebase에 올리기
-    const res = await fetch(
-      'https://picture-dairyd-default-rtdb.firebaseio.com/diary.json',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          title: textRef.current.value,
-          weather,
-          pickDate: pickDate
-            .toLocaleDateString()
-            .replace(/\./g, '')
-            .replace(/\s/g, '-'),
-          image: IMAGE_URL,
-        }),
-      },
-    );
-
-    if (!res.ok) {
-      alert('등록 실패!');
-      return;
-    }
-
-    alert('등록완료!');
   };
   return (
     <main>
-      <NewDiaryItemWrap>
-        <h1 style={{ marginTop: 5 }}>새 일기 쓰기</h1>
-        <article>
-          <ImgWrap>
-            <Img src={imagePreview} alt='이미지를 추가해주세요!' />
-          </ImgWrap>
-          <ImageUpload
-            setImageFile={setImageFile}
-            setImagePreview={setImagePreview}
-          />
-          <DatePicker
-            selected={pickDate}
-            onChange={(date) => setPickDate(date)}
-            locale={ko}
-          />
-          <WeatherList setWeather={setWeather} />
-          <textarea
-            style={{ width: '98%', resize: 'none', marginTop: '5px' }}
-            placeholder={'일기 내용을 작성해주세요!'}
-            rows={3}
-            ref={textRef}
-            onKeyDown={onKeyDownTextArea}
-            onKeyUp={onKeyUpTextArea}
-            maxLength={70}
-          />
-          <CustomButton
-            style={{ padding: 7, width: '100%' }}
-            onClick={onClickSubmit}
-          >
-            작성하기
-          </CustomButton>
-        </article>
-      </NewDiaryItemWrap>
+      {isLoading && <LoadingSpinner />}
+      {!isLoading && (
+        <NewDiaryItemWrap>
+          <h1 style={{ marginTop: 5 }}>새 일기 쓰기</h1>
+          <article>
+            <ImgWrap>
+              <Img src={imagePreview} alt='이미지를 추가해주세요!' />
+            </ImgWrap>
+            <ImageUpload
+              setImageFile={setImageFile}
+              setImagePreview={setImagePreview}
+            />
+            <DatePicker
+              selected={pickDate}
+              onChange={(date) => setPickDate(date)}
+              locale={ko}
+            />
+            <WeatherList setWeather={setWeather} />
+            <textarea
+              style={{ width: '98%', resize: 'none', marginTop: '5px' }}
+              placeholder={'일기 내용을 작성해주세요!'}
+              rows={3}
+              ref={textRef}
+              onChange={onChangeContents}
+              onKeyDown={onKeyDownTextArea}
+              onKeyUp={onKeyUpTextArea}
+              maxLength={70}
+            />
+            <CustomButton
+              style={{ padding: 7, width: '100%' }}
+              onClick={onClickSubmit}
+            >
+              작성하기
+            </CustomButton>
+          </article>
+        </NewDiaryItemWrap>
+      )}
     </main>
   );
 };
