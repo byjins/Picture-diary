@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import DirayItem from './DiaryItem';
 import { useEffect } from 'react';
 
-const DiaryList = () => {
+const DiaryList = ({ indexDate }) => {
   const [diaryList, setDiaryList] = useState([]);
   const fetchDiaryList = async () => {
     const res = await fetch(
@@ -18,19 +18,19 @@ const DiaryList = () => {
     // { id, image, pickDate, contents, weather }
 
     let arr = Object.values(data);
-    setDiaryList(arr);
+    setDiaryList(arr.filter((item) => item.pickDate.includes(indexDate)));
   };
 
   useEffect(() => {
     fetchDiaryList();
-  }, []);
+  }, [diaryList]);
 
   return (
     <main>
       <DirayListWrap>
-        {diaryList.map((item) => (
-          <DirayItem key={item.id} diaryList={item} />
-        ))}
+        {!diaryList && <NoDiaryData>작성한 일기가 없습니다!</NoDiaryData>}
+        {diaryList &&
+          diaryList.map((item) => <DirayItem key={item.id} diaryList={item} />)}
       </DirayListWrap>
     </main>
   );
@@ -43,4 +43,8 @@ const DirayListWrap = styled.section`
   flex-direction: column;
   gap: 15px;
   padding: 3px;
+`;
+
+const NoDiaryData = styled.div`
+  text-align: center;
 `;

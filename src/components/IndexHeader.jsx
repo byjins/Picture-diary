@@ -4,7 +4,7 @@ import { TbArrowBigRight, TbArrowBigLeft } from 'react-icons/tb';
 import IndexNav from './IndexNav';
 import HeaderWrap from './HeaderWrap';
 
-const IndexHeader = () => {
+const IndexHeader = ({ setPickDate }) => {
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
 
@@ -16,6 +16,10 @@ const IndexHeader = () => {
     setYear(date.getFullYear());
     setMonth(date.getMonth() + 1);
   }, []);
+
+  useEffect(() => {
+    setPickDate(`${year}-${month}`);
+  }, [year, month, setPickDate]);
 
   // 이전 달 클릭 시 1월달이라면 년도에서 -1
   const onClickPrevMonth = () => {

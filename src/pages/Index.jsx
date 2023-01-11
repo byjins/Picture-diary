@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import DiaryList from '../components/DiaryList';
 import IndexHeader from '../components/IndexHeader';
 
 const Index = () => {
+  const [pickDate, setPickDate] = useState('');
   return (
     <>
-      <IndexHeader />
-      <DiaryList />
+      <IndexHeader setPickDate={setPickDate} />
+      <DiaryList indexDate={pickDate} />
     </>
   );
 };

@@ -8,8 +8,8 @@ const LoadingSpinner = () => {
 export default LoadingSpinner;
 
 const Spinner = styled.img`
-  position: absolute;
-  top: 40%;
-  left: 28%;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
   z-index: 999;
 `;

@@ -4,6 +4,7 @@ import { CustomButton } from '../UI/CustomButton';
 
 const DiaryItem = ({ diaryList }) => {
   const { id, image: preview, contents, pickDate } = diaryList;
+
   return (
     <DiaryItemWrap>
       <ImageBox>
