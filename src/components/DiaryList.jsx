@@ -1,74 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import DirayItem from './DiaryItem';
+import { useEffect } from 'react';
 
-const DIRAYS = [
-  {
-    id: 1,
-    image: '',
-    text: '오늘 정말 좋은 하루였다.',
-    date: '2022-12-01',
-  },
-  {
-    id: 2,
-    image: '',
-    text: '오늘 정말 좋은 하루였다.',
-    date: '2022-12-05',
-  },
-  {
-    id: 3,
-    image: '',
-    text: '오늘 정말 좋은 하루였다.',
-    date: '2022-12-11',
-  },
-  {
-    id: 4,
-    image: '',
-    text: '오늘 정말 좋은 하루였다.',
-    date: '2022-12-18',
-  },
-  {
-    id: 5,
-    image: '',
-    text: '오늘 정말 좋은 하루였다.',
-    date: '2022-12-18',
-  },
-  {
-    id: 6,
-    image: '',
-    text: '오늘 정말 좋은 하루였다.',
-    date: '2022-12-18',
-  },
-  {
-    id: 7,
-    image: '',
-    text: '오늘 정말 좋은 하루였다.',
-    date: '2022-12-18',
-  },
-  {
-    id: 8,
-    image: '',
-    text: '오늘 정말 좋은 하루였다.',
-    date: '2022-12-18',
-  },
-  {
-    id: 9,
-    image: '',
-    text: '오늘 정말 좋은 하루였다.',
-    date: '2022-12-18',
-  },
-  {
-    id: 10,
-    image: '',
-    text: '오늘 정말 좋은 하루였다.오늘 정말 좋은 하루였다.오늘 정말 좋은 하루였다.오늘 정말 좋은 하루였다.오늘 정말 좋은 하루였다.',
-    date: '2022-12-18',
-  },
-];
 const DiaryList = () => {
+  const [diaryList, setDiaryList] = useState([]);
+  const fetchDiaryList = async () => {
+    const res = await fetch(
+      'https://picture-dairyd-default-rtdb.firebaseio.com/diary.json',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    const data = await res.json();
+    // { id, image, pickDate, contents, weather }
+
+    let arr = Object.values(data);
+    setDiaryList(arr);
+  };
+
+  useEffect(() => {
+    fetchDiaryList();
+  }, []);
+
   return (
     <main>
       <DirayListWrap>
-        {DIRAYS.map((item) => (
+        {diaryList.map((item) => (
           <DirayItem key={item.id} diaryList={item} />
         ))}
       </DirayListWrap>

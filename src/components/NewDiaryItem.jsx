@@ -73,7 +73,7 @@ const NewDiaryItem = () => {
             method: 'POST',
             body: JSON.stringify({
               id: uuid(),
-              title: contents,
+              contents,
               weather,
               pickDate: pickDate
                 .toLocaleDateString()

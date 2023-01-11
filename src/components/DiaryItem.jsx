@@ -3,21 +3,20 @@ import styled from 'styled-components';
 import { CustomButton } from '../UI/CustomButton';
 
 const DiaryItem = ({ diaryList }) => {
-  const { id, image, text, date } = diaryList;
-  console.log(text);
+  const { id, image: preview, contents, pickDate } = diaryList;
   return (
     <DiaryItemWrap>
       <ImageBox>
-        <img src={image} alt='이미지입니다' />
+        <Image src={preview} alt='이미지입니다' />
       </ImageBox>
       <DirayInfoBox>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <DiaryDate>{date}</DiaryDate>
+          <DiaryDate>{pickDate}</DiaryDate>
           <CustomButton background='grey' style={{ padding: 5 }}>
             수정하기
           </CustomButton>
         </div>
-        <DiaryText>{text}</DiaryText>
+        <DiaryText>{contents}</DiaryText>
       </DirayInfoBox>
     </DiaryItemWrap>
   );
@@ -34,11 +33,16 @@ const DiaryItemWrap = styled.article`
   padding: 5px;
 `;
 
+const Image = styled.img`
+  width: 125px;
+  height: 100%;
+`;
+
 const ImageBox = styled.div`
   background-color: antiquewhite;
   border-radius: 5px;
-  width: 200px;
   height: 100%;
+  overflow: hidden;
 `;
 
 const DirayInfoBox = styled.div`
@@ -46,7 +50,7 @@ const DirayInfoBox = styled.div`
   flex-direction: column;
   padding: 5px;
   gap: 5px;
-  width: 100%;
+  width: 65%;
 `;
 
 const DiaryDate = styled.span`
