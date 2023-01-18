@@ -1,16 +1,16 @@
 import { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import styled from 'styled-components';
-import { CustomButton } from '../UI/CustomButton';
-import ImageUpload from './ImageUpload';
+import { CustomButton } from '../../UI/CustomButton';
 import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
-import WeatherList from './WeatherList';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage } from '../service/firebase';
+import { storage } from '../../service/firebase';
 import uuid from 'react-uuid';
 import { useNavigate } from 'react-router-dom';
-import LoadingSpinner from '../asset/LoadingSpinner';
+import LoadingSpinner from '../../asset/LoadingSpinner';
+import WeatherList from './WeatherList';
+import ImageUpload from '../ImageUpload/ImageUpload';
 
 const NewDiaryItem = () => {
   const naviagte = useNavigate();

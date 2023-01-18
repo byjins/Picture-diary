@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CustomButton } from '../UI/CustomButton';
+import { CustomButton } from '../../UI/CustomButton';
 
 const DiaryItem = ({ diaryList }) => {
   const { id, image: preview, contents, pickDate } = diaryList;

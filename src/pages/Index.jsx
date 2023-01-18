@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import DiaryList from '../components/DiaryList';
-import IndexHeader from '../components/IndexHeader';
+import DiaryList from '../components/Dirays/DiaryList';
+import IndexHeader from '../components/Layout/IndexHeader';
 
 const Index = () => {
   const [pickDate, setPickDate] = useState('');

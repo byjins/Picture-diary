@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import DirayItem from './DiaryItem';
+import DirayItem from '../Diray/DiaryItem';
 import { useEffect } from 'react';
 
 const DiaryList = ({ indexDate }) => {

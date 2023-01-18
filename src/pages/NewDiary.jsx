@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import NewDiaryItem from '../components/NewDiaryItem';
+import NewDiaryItem from '../components/Diray/NewDiaryItem';
 import { TbArrowBigLeft } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
-import HeaderWrap from '../components/HeaderWrap';
+import HeaderWrap from '../components/Layout/HeaderWrap';
 
 const NewDiary = () => {
   const navigate = useNavigate();
