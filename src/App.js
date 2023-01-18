@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Index from './pages/Index';
 import NotFound from './pages/NotFound';
 import NewDiary from './pages/NewDiary';
+import SlideShow from './pages/SlideShow';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path='/' element={<Index />} />
         <Route path='/index' element={<Index />} />
         <Route path='/write' element={<NewDiary />} />
+        <Route path='/slideshow/:date' element={<SlideShow />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </ContainerWrap>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { CustomButton } from '../../UI/CustomButton';
 
-const IndexNav = () => {
+const IndexNav = (props) => {
   const navigate = useNavigate();
   return (
     <IndexNavWrap>
@@ -12,7 +12,10 @@ const IndexNav = () => {
           <option>최신순</option>
           <option>오래된 순</option>
         </SelectBox>
-        <CustomButton style={{ padding: '7px 10px' }}>
+        <CustomButton
+          onClick={() => navigate(`/slideshow/${props.year}-${props.month}`)}
+          style={{ padding: '7px 10px' }}
+        >
           슬라이드쇼로 보기
         </CustomButton>
       </OptionWrap>

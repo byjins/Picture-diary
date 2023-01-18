@@ -59,7 +59,7 @@ const IndexHeader = ({ setPickDate }) => {
             <TbArrowBigRight style={{ fontSize: 18 }} />
           </ArrowButton>
         </div>
-        <IndexNav />
+        <IndexNav year={year} month={month} />
       </HeaderWrap>
     </>
   );
