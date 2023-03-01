@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import { CustomButton } from '../../UI/CustomButton';
 import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../service/firebase';
 import uuid from 'react-uuid';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../asset/LoadingSpinner';
@@ -62,38 +60,6 @@ const NewDiaryItem = () => {
     // Create a root reference
 
     setIsLoading(true);
-    const storageRef = ref(storage, `images/${imageFile.name}`);
-
-    uploadBytes(storageRef, imageFile).then((snapshot) => {
-      getDownloadURL(storageRef).then(async (url) => {
-        // firebase에 올리기
-        const res = await fetch(
-          'https://picture-dairyd-default-rtdb.firebaseio.com/diary.json',
-          {
-            method: 'POST',
-            body: JSON.stringify({
-              id: uuid(),
-              contents,
-              weather,
-              pickDate: pickDate
-                .toLocaleDateString()
-                .replace(/\./g, '')
-                .replace(/\s/g, '-'),
-              image: url,
-            }),
-          },
-        );
-
-        if (!res.ok) {
-          alert('등록 실패!');
-          setIsLoading(false);
-          return;
-        }
-
-        alert('등록완료!');
-        naviagte('/');
-      });
-    });
   };
   return (
     <main>
