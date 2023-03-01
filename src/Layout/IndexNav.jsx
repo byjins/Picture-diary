@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { CustomButton } from '../../UI/CustomButton';
+import { CustomButton } from '../UI/CustomButton';
 
 const IndexNav = (props) => {
   const navigate = useNavigate();

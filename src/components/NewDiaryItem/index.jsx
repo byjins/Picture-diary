@@ -4,11 +4,10 @@ import styled from 'styled-components';
 import { CustomButton } from '../../UI/CustomButton';
 import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
-import uuid from 'react-uuid';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../asset/LoadingSpinner';
-import WeatherList from './WeatherList';
-import ImageUpload from '../ImageUpload/ImageUpload';
+import WeatherList from '../Diray/WeatherList';
+import ImageUpload from '../ImageUpload';
 
 const NewDiaryItem = () => {
   const naviagte = useNavigate();
